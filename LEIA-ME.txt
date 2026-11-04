@@ -6,4 +6,4 @@ CALCULADORA DE INFUSÃO - PWA
    Android (Chrome): menu ⋮ > Instalar aplicativo.
    iPhone (Safari): Compartilhar > Adicionar à Tela de Início.
 3. Depois do primeiro acesso, o app abre também sem internet.
-4. Ao alterar o conteúdo, mude CACHE="infusao-v1" em sw.js (ex.: infusao-v2) para os aparelhos atualizarem.
+4. Ao alterar o conteúdo, mude CACHE="infusao-v2" em sw.js (ex.: infusao-v2) para os aparelhos atualizarem.
