@@ -36,6 +36,13 @@ input,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:9p
 .note{font-size:.78rem;color:var(--mut);margin-top:14px;text-align:center}
 h2{font-size:1rem;margin:0}
 h3{font-size:.95rem;margin:18px 0 6px;color:var(--ac)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.acts .clr{margin-top:0}
+.sv{width:100%;padding:11px;border:0;border-radius:10px;background:var(--ac);color:var(--acx);font:inherit;font-weight:600;cursor:pointer}
+.hc{border:1px solid var(--bd);border-radius:12px;padding:12px;margin-top:10px;background:var(--bg)}
+.hr{font-size:1.15rem;font-weight:700;color:var(--ac);margin:4px 0}
+textarea.nt{width:100%;margin:8px 0 10px;padding:9px;border:1px solid var(--bd);border-radius:9px;background:var(--card);color:var(--tx);font:inherit;font-size:.9rem;resize:vertical}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:20px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:60}
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.88rem}
 th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
@@ -63,8 +70,10 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <button data-t="b">Bomba</button>
 <button data-t="c">Conversão</button>
 <button data-t="r">Referência</button>
+<button data-t="h">Anotações</button>
 <button data-t="s">Termos</button>
 </nav>
+<div class="warn">⚠️ <b>Siga sempre a prescrição.</b> Em caso de dúvida, <b>não administre</b>: pare, confira de novo e comunique o médico responsável. A segurança do paciente vem em primeiro lugar.</div>
 
 <section id="g" class="on">
 <h2>Gotas por minuto</h2>
@@ -77,7 +86,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <select id="g_f"><option value="20">Macrogotas: 20 gts/mL</option><option value="15">Macrogotas: 15 gts/mL</option><option value="60">Microgotas: 60 microgotas/mL</option><option value="x">Outro fator…</option></select>
 <input id="g_x" type="text" inputmode="decimal" placeholder="gotas por mL" style="display:none;margin-top:8px">
 <div class="res"><div class="big" id="g_r1">—</div><div class="sm" id="g_r2"></div><div class="sm" id="g_r3"></div></div>
-<button type="button" class="clr" data-s="g">🧹 Limpar cálculo</button>
+<div class="acts"><button type="button" class="sv" data-s="g">💾 Salvar</button><button type="button" class="clr" data-s="g">🧹 Limpar</button></div>
 </section>
 
 <section id="t">
@@ -89,7 +98,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <div id="t_fw"><label>Equipo</label>
 <select id="t_f"><option value="20">Macrogotas 20 gts/mL</option><option value="15">Macrogotas 15 gts/mL</option><option value="60">Microgotas 60/mL</option></select></div>
 <div class="res"><div class="big" id="t_r1">—</div><div class="sm" id="t_r2"></div><div class="sm" id="t_r3"></div></div>
-<button type="button" class="clr" data-s="t">🧹 Limpar cálculo</button>
+<div class="acts"><button type="button" class="sv" data-s="t">💾 Salvar</button><button type="button" class="clr" data-s="t">🧹 Limpar</button></div>
 </section>
 
 <section id="b">
@@ -104,7 +113,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <div><label>Volume final (mL)</label><input id="b_vol" type="text" inputmode="decimal" placeholder="ex.: 250"></div>
 </div>
 <div class="res"><div class="big" id="b_r1">—</div><div class="sm" id="b_r2"></div></div>
-<button type="button" class="clr" data-s="b">🧹 Limpar cálculo</button>
+<div class="acts"><button type="button" class="sv" data-s="b">💾 Salvar</button><button type="button" class="clr" data-s="b">🧹 Limpar</button></div>
 <div class="warn">⚠️ Para medicamentos de alta vigilância (insulina, heparina, eletrólitos concentrados, vasoativos, opioides, sedativos), faça dupla checagem independente do cálculo e da programação da bomba. Veja a aba Referência.</div>
 </section>
 
@@ -118,7 +127,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <div><label>Para</label><select id="c_b"></select></div>
 </div>
 <div class="res"><div class="big" id="c_r1">—</div><div class="sm" id="c_r2"></div></div>
-<button type="button" class="clr" data-s="c">🧹 Limpar cálculo</button>
+<div class="acts"><button type="button" class="sv" data-s="c">💾 Salvar</button><button type="button" class="clr" data-s="c">🧹 Limpar</button></div>
 </section>
 
 <section id="r">
@@ -189,30 +198,40 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <p class="sm">Valores aproximados. Sempre confirme no rótulo e na bula do produto usado.</p>
 </section>
 
+<section id="h">
+<h2>Anotações e cálculos salvos <span id="hn" class="sm"></span></h2>
+<div class="warn">🔒 Ficam salvos só neste aparelho e navegador. Não escreva nome, prontuário, leito ou dados que identifiquem pacientes. Limpar os dados do navegador apaga tudo.</div>
+<div id="hl"></div>
+<button type="button" id="hx" class="clr" style="margin-top:14px">🗑️ Apagar tudo</button>
+</section>
+
 <section id="s" class="tm">
 <h2>Termos de uso e segurança</h2>
-<p class="sm">Versão 1.0, 04/11/2026</p>
+<p class="sm">Versão 1.2, 04/11/2026</p>
 <ol>
+<li><b>Segurança do paciente em primeiro lugar.</b> Siga sempre a prescrição médica e os protocolos da instituição. Nunca prepare ou administre um medicamento com dúvida: pare, releia a prescrição, confira paciente, medicamento, dose, via, velocidade e horário, peça a dupla checagem e comunique o médico responsável e a enfermagem responsável antes de prosseguir. Registre e notifique qualquer evento ou quase erro conforme o fluxo da instituição.</li>
 <li><b>Finalidade.</b> Este aplicativo é uma ferramenta de apoio ao cálculo (gotejamento, tempo de infusão, vazão de bomba e conversão de unidades). Não é dispositivo médico, não faz diagnóstico e não substitui prescrição, julgamento clínico, protocolos institucionais nem a dupla checagem.</li>
 <li><b>Quem pode usar.</b> Destinado a profissionais de saúde habilitados e a estudantes sob supervisão.</li>
-<li><b>Conferência obrigatória.</b> Todo resultado deve ser conferido com a prescrição, o rótulo e a bula. Para medicamentos de alta vigilância, a dupla checagem independente é obrigatória.</li>
+<li><b>Conferência obrigatória.</b> Todo resultado deve ser conferido com a prescrição, o rótulo e a bula. Se o resultado for diferente da prescrição ou parecer incomum, não prossiga e comunique o médico responsável. Para medicamentos de alta vigilância, a dupla checagem independente é obrigatória.</li>
 <li><b>Responsabilidade.</b> A conferência e a administração são de responsabilidade de quem usa. Os criadores do aplicativo e a plataforma que o hospeda não respondem por danos decorrentes do uso sem a devida conferência, de erro de digitação ou de interpretação do resultado.</li>
 <li><b>Valores de referência.</b> Tabelas de equivalências, concentrações e ampolas são aproximadas e podem variar conforme fabricante, apresentação e lote. Prevalece sempre o rótulo e a bula do produto em uso.</li>
-<li><b>Privacidade e dados (LGPD).</b> Os cálculos são feitos no próprio aparelho. O aplicativo não envia, não coleta e não armazena dados clínicos. Não digite nome, prontuário, leito ou qualquer dado que identifique pacientes. O único dado guardado no navegador é o aceite destes termos.</li>
+<li><b>Privacidade e dados (LGPD).</b> Os cálculos são feitos no próprio aparelho. O aplicativo não envia nem coleta dados. Os cálculos e as anotações que você salvar ficam guardados apenas neste aparelho e navegador, e você pode apagá-los a qualquer momento. Não digite nome, prontuário, leito ou qualquer dado que identifique pacientes, nem nas anotações. Limpar os dados do navegador apaga o histórico.</li>
 <li><b>Acesso por link.</b> O link é pessoal. Compartilhe apenas com quem deve ter acesso e use aparelho com bloqueio de tela. A página é hospedada pelo claude.ai.</li>
 <li><b>Atualizações.</b> O conteúdo pode mudar. Revise periodicamente com seu serviço, a farmácia e a comissão de segurança do paciente antes de adotar o app na rotina da instituição.</li>
 </ol>
 <p class="sm">Texto de apoio, não substitui parecer jurídico. A instituição deve revisá-lo antes do uso institucional.</p>
 </section>
 
+<div id="toast" class="toast" role="status"></div>
 <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gt_t"><div class="gbox">
 <h2 id="gt_t">⚠️ Termos de uso e segurança</h2>
 <ul>
+<li><b>Siga sempre a prescrição.</b> Em qualquer dúvida, <b>não administre</b>: pare, confira de novo e comunique o médico responsável. A segurança do paciente vem em primeiro lugar.</li>
 <li>Ferramenta de <b>apoio ao cálculo</b>. Não substitui prescrição, protocolo nem julgamento clínico.</li>
 <li>Confira todo resultado com a prescrição, o rótulo e a bula.</li>
 <li><b>Dupla checagem independente</b> obrigatória para medicamentos de alta vigilância.</li>
 <li>Valores de referência são aproximados.</li>
-<li>Não digite dados que identifiquem pacientes. Nada é enviado ou armazenado, só o seu aceite.</li>
+<li>Não digite dados que identifiquem pacientes. Nada é enviado: cálculos e anotações salvos ficam só neste aparelho.</li>
 <li>Uso destinado a profissionais de saúde habilitados.</li>
 </ul>
 <label style="display:flex;gap:10px;align-items:flex-start;color:var(--tx);font-size:.9rem"><input type="checkbox" id="gt_ck" style="width:auto;margin-top:3px"> Li e aceito os termos de uso e segurança.</label>
@@ -281,12 +300,39 @@ $("c_r2").textContent=f(v,6)+" "+a.split("  ")[0]+" = "+f(r,6)+" "+b.split("  ")
 ["b_d","b_p","b_mg","b_vol"].forEach(function(i){$(i).oninput=calcB});$("b_u").onchange=calcB;
 $("c_n").oninput=calcC;$("c_a").onchange=calcC;$("c_b").onchange=calcC;$("c_k").onchange=fillC;
 calcT();calcB();fillC();
+var HK='ci_hist_v1',TT={g:'Gotejamento',t:'Tempo de infusão',b:'Bomba (mL/h)',c:'Conversão'};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function ld(){try{var a=JSON.parse(localStorage.getItem(HK)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+function sd(a){try{localStorage.setItem(HK,JSON.stringify(a));return true}catch(e){return false}}
+function st(i){var o=$(i);return o.options[o.selectedIndex].text}
+function vl(i){return $(i).value.trim()||'—'}
+function dt(ts){return new Date(ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function toast(m){var t=$('toast');t.textContent=m;t.style.opacity=1;clearTimeout(toast.k);toast.k=setTimeout(function(){t.style.opacity=0},2200)}
+function cop(t){try{navigator.clipboard.writeText(t).then(function(){toast('Copiado')},function(){toast('Não foi possível copiar')})}catch(e){toast('Não foi possível copiar')}}
+var EN={g:function(){return 'Volume '+vl('g_v')+' mL · Tempo '+(n('g_h')||0)+' h '+(n('g_m')||0)+' min · '+($('g_f').value==='x'?vl('g_x')+' gts/mL':st('g_f'))},
+t:function(){var gt=$('t_u').value==='gt';return 'Volume '+vl('t_v')+' mL · '+(gt?vl('t_s')+' gotas/min · '+st('t_f'):vl('t_s')+' mL/h')},
+b:function(){var u=$('b_u').value;return 'Dose '+vl('b_d')+' '+st('b_u')+(u==='mgh'?'':' · Peso '+vl('b_p')+' kg')+' · '+vl('b_mg')+' mg em '+vl('b_vol')+' mL'},
+c:function(){return vl('c_n')+' '+$('c_a').value.split('  ')[0]+' → '+$('c_b').value.split('  ')[0]}};
+function rend(){var a=ld(),L=$('hl');$('hn').textContent=a.length?'('+a.length+')':'';
+if(!a.length){L.innerHTML=`<p class='sm'>Nenhum cálculo salvo ainda. Faça um cálculo e toque em Salvar.</p>`;return}
+L.innerHTML=a.map(function(x){return `<div class='hc' data-id='${x.id}'><div class='sm'><b>${esc(TT[x.s]||'')}</b> · ${dt(x.ts)}</div><div class='sm'>${esc(x.e)}</div><div class='hr'>${esc(x.r)}</div>${x.d?`<div class='sm'>${esc(x.d)}</div>`:''}<textarea class='nt' rows='2' placeholder='Anotação (sem dados de paciente)'>${esc(x.n||'')}</textarea><div class='acts'><button type='button' class='clr' data-a='cp'>📋 Copiar</button><button type='button' class='clr' data-a='del'>🗑️ Excluir</button></div></div>`}).join('')}
+function salvar(s){var r=$(s+'_r1').textContent;if(!r||r==='—'){toast('Preencha o cálculo antes de salvar');return}
+var d=[$(s+'_r2'),$(s+'_r3')].map(function(o){return o?o.textContent:''}).filter(Boolean).join(' · ');
+var a=ld();a.unshift({id:Date.now(),ts:new Date().toISOString(),s:s,e:EN[s](),r:r,d:d,n:''});
+if(sd(a.slice(0,200))){toast('Salvo em Anotações');rend()}else toast('Não foi possível salvar neste navegador')}
+$('hl').addEventListener('input',function(e){if(!e.target.classList.contains('nt'))return;var id=e.target.closest('.hc').dataset.id,a=ld();a.forEach(function(x){if(String(x.id)===id)x.n=e.target.value});sd(a)});
+$('hl').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!b.dataset.a)return;var id=b.closest('.hc').dataset.id,a=ld();
+if(b.dataset.a==='del'){sd(a.filter(function(x){return String(x.id)!==id}));rend()}
+else{var x=a.filter(function(y){return String(y.id)===id})[0];if(!x)return;cop([TT[x.s]+' - '+dt(x.ts),x.e,x.r,x.d,x.n?'Anotação: '+x.n:''].filter(Boolean).join('\n'))}});
+var hx=0;$('hx').onclick=function(){var b=this;if(!ld().length)return;if(!hx){hx=1;b.textContent='Toque de novo para apagar tudo';setTimeout(function(){hx=0;b.textContent='🗑️ Apagar tudo'},4000)}else{hx=0;sd([]);rend();b.textContent='🗑️ Apagar tudo'}};
+document.querySelectorAll('.sv').forEach(function(b){b.onclick=function(){salvar(b.dataset.s)}});
+rend();
 function limpar(s){var sec=$(s);
 sec.querySelectorAll("input[type=text]").forEach(function(i){i.value=""});
 sec.querySelectorAll("select").forEach(function(x){x.selectedIndex=0});
 ({g:calcG,t:calcT,b:calcB,c:fillC})[s]()}
-document.querySelectorAll(".clr").forEach(function(b){b.onclick=function(){limpar(b.dataset.s)}});
-var KT="ci_termos_v1";
+document.querySelectorAll(".clr[data-s]").forEach(function(b){b.onclick=function(){limpar(b.dataset.s)}});
+var KT="ci_termos_v3";
 try{if(localStorage.getItem(KT)==="1")$("gate").style.display="none"}catch(e){}
 $("gt_ck").onchange=function(){$("gt_bt").disabled=!this.checked};
 $("gt_bt").onclick=function(){try{localStorage.setItem(KT,"1")}catch(e){}$("gate").style.display="none"};
