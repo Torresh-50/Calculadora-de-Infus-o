@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de Infusão</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a7a8f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Infusão">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f4f7fa;--card:#fff;--tx:#14212e;--mut:#5b6b7a;--ac:#0a7a8f;--acx:#fff;--bd:#d5dde5;--res:#e3f4f7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1820;--card:#17232e;--tx:#e8eef3;--mut:#93a4b3;--ac:#3cc3d9;--acx:#06222a;--bd:#2a3a48;--res:#12323b}}
+:root[data-theme="dark"]{--bg:#0f1820;--card:#17232e;--tx:#e8eef3;--mut:#93a4b3;--ac:#3cc3d9;--acx:#06222a;--bd:#2a3a48;--res:#12323b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:4px 0 12px}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+nav button{flex:1;white-space:nowrap;padding:10px 12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
+section{display:none;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-top:10px}
+section.on{display:block}
+label{display:block;font-size:.85rem;color:var(--mut);margin:12px 0 4px}
+input,select{width:100%;padding:11px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res{margin-top:16px;background:var(--res);border-radius:12px;padding:14px}
+.big{font-size:1.9rem;font-weight:700;color:var(--ac);line-height:1.2}
+.sm{font-size:.88rem;color:var(--mut);margin-top:4px}
+.note{font-size:.78rem;color:var(--mut);margin-top:14px;text-align:center}
+h2{font-size:1rem;margin:0}
+h3{font-size:.95rem;margin:18px 0 6px;color:var(--ac)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{color:var(--mut);font-weight:600}
+.gate{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.gbox{max-width:560px;margin:0 auto}
+.gbox ul,.tm ol{padding-left:20px;font-size:.9rem}
+.gbox li,.tm li{margin:6px 0}
+.btn{width:100%;padding:13px;border:0;border-radius:10px;background:var(--ac);color:var(--acx);font:inherit;font-weight:700;margin-top:14px;cursor:pointer}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+tr.al td{background:rgba(240,150,0,.16);font-weight:600}
+.alert{border:2px solid #e08a00;background:rgba(240,150,0,.12);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:.88rem}
+.alert ul{margin:6px 0 0;padding-left:18px}
+.alert li{margin:3px 0}
+.warn{margin:14px 0 0;padding:10px 12px;border:2px solid #e08a00;background:rgba(240,150,0,.12);border-radius:10px;font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<h1>💧 Calculadora de Infusão</h1>
+<nav id="nav">
+<button data-t="g" class="on">Gotejamento</button>
+<button data-t="t">Tempo</button>
+<button data-t="b">Bomba</button>
+<button data-t="c">Conversão</button>
+<button data-t="r">Referência</button>
+<button data-t="s">Termos</button>
+</nav>
+
+<section id="g" class="on">
+<h2>Gotas por minuto</h2>
+<label>Volume (mL)</label><input id="g_v" type="text" inputmode="decimal" placeholder="ex.: 500">
+<div class="row">
+<div><label>Tempo (horas)</label><input id="g_h" type="text" inputmode="decimal" placeholder="ex.: 8"></div>
+<div><label>Tempo (minutos)</label><input id="g_m" type="text" inputmode="decimal" placeholder="ex.: 0"></div>
+</div>
+<label>Equipo</label>
+<select id="g_f"><option value="20">Macrogotas: 20 gts/mL</option><option value="15">Macrogotas: 15 gts/mL</option><option value="60">Microgotas: 60 microgotas/mL</option><option value="x">Outro fator…</option></select>
+<input id="g_x" type="text" inputmode="decimal" placeholder="gotas por mL" style="display:none;margin-top:8px">
+<div class="res"><div class="big" id="g_r1">—</div><div class="sm" id="g_r2"></div><div class="sm" id="g_r3"></div></div>
+</section>
+
+<section id="t">
+<h2>Tempo de infusão</h2>
+<label>Volume (mL)</label><input id="t_v" type="text" inputmode="decimal" placeholder="ex.: 500">
+<label>Velocidade informada em</label>
+<select id="t_u"><option value="ml">mL/h (bomba)</option><option value="gt">gotas/min</option></select>
+<label>Velocidade</label><input id="t_s" type="text" inputmode="decimal" placeholder="ex.: 63">
+<div id="t_fw"><label>Equipo</label>
+<select id="t_f"><option value="20">Macrogotas 20 gts/mL</option><option value="15">Macrogotas 15 gts/mL</option><option value="60">Microgotas 60/mL</option></select></div>
+<div class="res"><div class="big" id="t_r1">—</div><div class="sm" id="t_r2"></div><div class="sm" id="t_r3"></div></div>
+</section>
+
+<section id="b">
+<h2>Dose para vazão da bomba (mL/h)</h2>
+<div class="row">
+<div><label>Dose prescrita</label><input id="b_d" type="text" inputmode="decimal"></div>
+<div><label>Unidade</label><select id="b_u"><option value="mkm">mcg/kg/min</option><option value="mkh">mcg/kg/h</option><option value="mgh">mg/h</option></select></div>
+</div>
+<div id="b_pw"><label>Peso do paciente (kg)</label><input id="b_p" type="text" inputmode="decimal"></div>
+<div class="row">
+<div><label>Droga na solução (mg)</label><input id="b_mg" type="text" inputmode="decimal" placeholder="ex.: 200"></div>
+<div><label>Volume final (mL)</label><input id="b_vol" type="text" inputmode="decimal" placeholder="ex.: 250"></div>
+</div>
+<div class="res"><div class="big" id="b_r1">—</div><div class="sm" id="b_r2"></div></div>
+<div class="warn">⚠️ Para medicamentos de alta vigilância (insulina, heparina, eletrólitos concentrados, vasoativos, opioides, sedativos), faça dupla checagem independente do cálculo e da programação da bomba. Veja a aba Referência.</div>
+</section>
+
+<section id="c">
+<h2>Conversão de unidades</h2>
+<label>Tipo</label>
+<select id="c_k"><option value="m">Massa (kg, g, mg, mcg, ng)</option><option value="v">Volume (L, mL, µL)</option><option value="p">Concentração (% ↔ mg/mL)</option><option value="h">Gotas e medidas caseiras (mL)</option></select>
+<label>Valor</label><input id="c_n" type="text" inputmode="decimal" placeholder="ex.: 0,5">
+<div class="row">
+<div><label>De</label><select id="c_a"></select></div>
+<div><label>Para</label><select id="c_b"></select></div>
+</div>
+<div class="res"><div class="big" id="c_r1">—</div><div class="sm" id="c_r2"></div></div>
+</section>
+
+<section id="r">
+<h2>Tabela de referência</h2>
+<div class="alert"><b>⚠️ Medicamentos de alta vigilância</b><br>As linhas em laranja com ⚠️ indicam produtos em que um erro tem maior chance de causar dano grave. Exigem atenção redobrada e dupla checagem independente.<ul>
+<li>Dois profissionais conferem separadamente: cálculo, concentração, dose, via, velocidade e paciente (os “certos”).</li>
+<li>KCl e NaCl 20%: nunca administrar puros nem em bolus. Diluir sempre e usar bomba de infusão.</li>
+<li>Sulfato de Mg e gluconato de Ca: infundir lentamente, conforme protocolo, com monitorização.</li>
+<li>Glicose 50%: hipertônica, atenção à via e ao risco de extravasamento.</li>
+<li>Insulina: usar seringa própria e nunca confundir UI com mL. Heparina: conferir a concentração do frasco.</li>
+<li>Ampolas parecidas: armazenar separadas, etiquetadas e ler o rótulo a cada preparo.</li>
+</ul>
+<span class="sm">Lista de apoio, inspirada em listas de medicamentos potencialmente perigosos. Siga sempre a lista e o protocolo da sua instituição.</span></div>
+<h3>Gotas</h3>
+<div class="tw"><table>
+<tr><th>Medida</th><th>Equivale a</th></tr>
+<tr><td>1 mL</td><td>20 gotas = 60 microgotas</td></tr>
+<tr><td>1 gota (macrogota, equipo 20/mL)</td><td>0,05 mL = 3 microgotas</td></tr>
+<tr><td>1 gota (equipo 15/mL)</td><td>≈ 0,067 mL</td></tr>
+<tr><td>1 microgota</td><td>≈ 0,0167 mL</td></tr>
+<tr><td>1 gota/min (macro 20/mL)</td><td>3 mL/h</td></tr>
+<tr><td>1 microgota/min</td><td>1 mL/h</td></tr>
+<tr><td>Equipo de sangue</td><td>10 a 15 gotas/mL (ver embalagem)</td></tr>
+</table></div>
+<p class="sm">Gotas orais de medicamentos variam conforme a droga e o frasco (xaropes, óleos e soluções alcoólicas podem ter gota diferente). Confira a bula.</p>
+<h3>Medidas caseiras</h3>
+<div class="tw"><table>
+<tr><th>Medida</th><th>mL</th></tr>
+<tr><td>Colher de café</td><td>2</td></tr>
+<tr><td>Colher de chá</td><td>5</td></tr>
+<tr><td>Colher de sobremesa</td><td>10</td></tr>
+<tr><td>Colher de sopa</td><td>15</td></tr>
+<tr><td>Xícara de café</td><td>50</td></tr>
+<tr><td>Xícara de chá</td><td>150</td></tr>
+<tr><td>Copo americano</td><td>≈ 200</td></tr>
+<tr><td>1 cc = 1 cm³</td><td>1</td></tr>
+</table></div>
+<h3>Massa e volume</h3>
+<div class="tw"><table>
+<tr><td>1 kg</td><td>1.000 g</td></tr>
+<tr><td>1 g</td><td>1.000 mg</td></tr>
+<tr><td>1 mg</td><td>1.000 mcg (µg)</td></tr>
+<tr><td>1 mcg</td><td>1.000 ng</td></tr>
+<tr><td>1 L</td><td>1.000 mL</td></tr>
+<tr><td>1% (g/100 mL)</td><td>10 mg/mL</td></tr>
+<tr class="al"><td>⚠️ Adrenalina 1:1.000</td><td>1 mg/mL</td></tr>
+<tr class="al"><td>⚠️ Adrenalina 1:10.000</td><td>0,1 mg/mL</td></tr>
+</table></div>
+<h3>Unidades Internacionais (UI)</h3>
+<p class="sm">A UI depende da substância, não existe conversão única. Exemplos comuns:</p>
+<div class="tw"><table>
+<tr class="al"><td>⚠️ Insulina U-100</td><td>100 UI/mL, então 1 UI = 0,01 mL</td></tr>
+<tr class="al"><td>⚠️ Heparina 5.000 UI/mL</td><td>1 mL = 5.000 UI, 0,1 mL = 500 UI</td></tr>
+</table></div>
+<h3>Soluções e ampolas comuns</h3>
+<div class="tw"><table>
+<tr><th>Solução</th><th>Concentração</th></tr>
+<tr><td>SF 0,9%</td><td>9 mg/mL de NaCl (154 mEq/L de Na)</td></tr>
+<tr><td>SG 5%</td><td>50 mg/mL de glicose</td></tr>
+<tr><td>SG 10%</td><td>100 mg/mL</td></tr>
+<tr class="al"><td>⚠️ Glicose 50%</td><td>500 mg/mL (amp. 10 mL = 5 g)</td></tr>
+<tr class="al"><td>⚠️ NaCl 20%</td><td>200 mg/mL ≈ 3,4 mEq/mL (amp. 10 mL ≈ 34 mEq)</td></tr>
+<tr class="al"><td>⚠️ KCl 19,1%</td><td>≈ 2,5 mEq/mL (amp. 10 mL ≈ 25 mEq)</td></tr>
+<tr><td>Bicarbonato 8,4%</td><td>1 mEq/mL</td></tr>
+<tr class="al"><td>⚠️ Sulfato de Mg 50%</td><td>500 mg/mL ≈ 4 mEq/mL</td></tr>
+<tr class="al"><td>⚠️ Gluconato de Ca 10%</td><td>100 mg/mL ≈ 0,46 mEq/mL</td></tr>
+</table></div>
+<p class="sm">Valores aproximados. Sempre confirme no rótulo e na bula do produto usado.</p>
+</section>
+
+<section id="s" class="tm">
+<h2>Termos de uso e segurança</h2>
+<p class="sm">Versão 1.0, 04/11/2026</p>
+<ol>
+<li><b>Finalidade.</b> Este aplicativo é uma ferramenta de apoio ao cálculo (gotejamento, tempo de infusão, vazão de bomba e conversão de unidades). Não é dispositivo médico, não faz diagnóstico e não substitui prescrição, julgamento clínico, protocolos institucionais nem a dupla checagem.</li>
+<li><b>Quem pode usar.</b> Destinado a profissionais de saúde habilitados e a estudantes sob supervisão.</li>
+<li><b>Conferência obrigatória.</b> Todo resultado deve ser conferido com a prescrição, o rótulo e a bula. Para medicamentos de alta vigilância, a dupla checagem independente é obrigatória.</li>
+<li><b>Responsabilidade.</b> A conferência e a administração são de responsabilidade de quem usa. Os criadores do aplicativo e a plataforma que o hospeda não respondem por danos decorrentes do uso sem a devida conferência, de erro de digitação ou de interpretação do resultado.</li>
+<li><b>Valores de referência.</b> Tabelas de equivalências, concentrações e ampolas são aproximadas e podem variar conforme fabricante, apresentação e lote. Prevalece sempre o rótulo e a bula do produto em uso.</li>
+<li><b>Privacidade e dados (LGPD).</b> Os cálculos são feitos no próprio aparelho. O aplicativo não envia, não coleta e não armazena dados clínicos. Não digite nome, prontuário, leito ou qualquer dado que identifique pacientes. O único dado guardado no navegador é o aceite destes termos.</li>
+<li><b>Acesso por link.</b> O link é pessoal. Compartilhe apenas com quem deve ter acesso e use aparelho com bloqueio de tela. A página é hospedada pelo claude.ai.</li>
+<li><b>Atualizações.</b> O conteúdo pode mudar. Revise periodicamente com seu serviço, a farmácia e a comissão de segurança do paciente antes de adotar o app na rotina da instituição.</li>
+</ol>
+<p class="sm">Texto de apoio, não substitui parecer jurídico. A instituição deve revisá-lo antes do uso institucional.</p>
+</section>
+
+<div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gt_t"><div class="gbox">
+<h2 id="gt_t">⚠️ Termos de uso e segurança</h2>
+<ul>
+<li>Ferramenta de <b>apoio ao cálculo</b>. Não substitui prescrição, protocolo nem julgamento clínico.</li>
+<li>Confira todo resultado com a prescrição, o rótulo e a bula.</li>
+<li><b>Dupla checagem independente</b> obrigatória para medicamentos de alta vigilância.</li>
+<li>Valores de referência são aproximados.</li>
+<li>Não digite dados que identifiquem pacientes. Nada é enviado ou armazenado, só o seu aceite.</li>
+<li>Uso destinado a profissionais de saúde habilitados.</li>
+</ul>
+<label style="display:flex;gap:10px;align-items:flex-start;color:var(--tx);font-size:.9rem"><input type="checkbox" id="gt_ck" style="width:auto;margin-top:3px"> Li e aceito os termos de uso e segurança.</label>
+<button id="gt_bt" class="btn" disabled>Continuar</button>
+<p class="sm">Termos completos na aba Termos.</p>
+</div></div>
+
+<p class="note">Ferramenta de apoio ao cálculo. Sempre confira o resultado conforme prescrição, protocolo da instituição e dupla checagem.</p>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+function n(i){var v=parseFloat(String($(i).value).replace(",","."));return isNaN(v)?null:v}
+function f(x,d){return x.toLocaleString("pt-BR",{maximumFractionDigits:d==null?2:d})}
+function fim(minTotal){var d=new Date(Date.now()+minTotal*60000);
+return d.toLocaleString("pt-BR",{weekday:"short",hour:"2-digit",minute:"2-digit"})}
+function dur(min){var h=Math.floor(min/60),m=Math.round(min-h*60);if(m===60){h++;m=0}return h+" h "+m+" min"}
+
+// Tabs
+document.querySelectorAll("#nav button").forEach(function(b){b.onclick=function(){
+document.querySelectorAll("#nav button,section").forEach(function(e){e.classList.remove("on")});
+b.classList.add("on");$(b.dataset.t).classList.add("on")}});
+
+// Gotejamento
+function calcG(){
+var fs=$("g_f").value;$("g_x").style.display=fs==="x"?"block":"none";
+var fat=fs==="x"?n("g_x"):parseFloat(fs),v=n("g_v"),h=n("g_h")||0,m=n("g_m")||0,t=h*60+m;
+if(!v||!fat||t<=0){$("g_r1").textContent="—";$("g_r2").textContent="";$("g_r3").textContent="";return}
+var mlh=v/(t/60),gpm=v*fat/t;
+$("g_r1").textContent=f(gpm,1)+" gotas/min";
+$("g_r2").textContent="Vazão: "+f(mlh)+" mL/h  ·  1 gota a cada "+f(60/gpm)+" s";
+$("g_r3").textContent="≈ "+f(gpm/6,1)+" gotas a cada 10 segundos";
+}
+// Tempo
+function calcT(){
+var gt=$("t_u").value==="gt";$("t_fw").style.display=gt?"block":"none";
+var v=n("t_v"),s=n("t_s");
+if(!v||!s||s<=0){$("t_r1").textContent="—";$("t_r2").textContent="";$("t_r3").textContent="";return}
+var mlh=gt?s*60/parseFloat($("t_f").value):s,min=v/mlh*60;
+$("t_r1").textContent=dur(min);
+$("t_r2").textContent="Vazão equivalente: "+f(mlh)+" mL/h"+(gt?"":"  ·  "+f(mlh*parseFloat($("t_f").value)/60,1)+" gts/min (equipo "+$("t_f").value+")");
+$("t_r3").textContent="Término previsto se iniciar agora: "+fim(min);
+}
+// Bomba
+function calcB(){
+var u=$("b_u").value;$("b_pw").style.display=u==="mgh"?"none":"block";
+var d=n("b_d"),p=n("b_p"),mg=n("b_mg"),vol=n("b_vol");
+if(!d||!mg||!vol||(u!=="mgh"&&!p)){$("b_r1").textContent="—";$("b_r2").textContent="";return}
+var mcgH=u==="mkm"?d*p*60:u==="mkh"?d*p:d*1000,conc=mg/vol;
+var mlh=mcgH/(conc*1000);
+$("b_r1").textContent=f(mlh)+" mL/h";
+$("b_r2").textContent="Concentração: "+f(conc,3)+" mg/mL ("+f(conc*1000,1)+" mcg/mL)  ·  dose "+f(mcgH,1)+" mcg/h";
+}
+// Conversão
+var U={m:{kg:1000,g:1,mg:.001,mcg:1e-6,ng:1e-9},v:{L:1000,mL:1,"µL":.001},p:{"%  (g/100 mL)":10,"mg/mL":1,"mcg/mL":.001,"g/L":1},h:{"microgota (60/mL)":1/60,"gota (equipo 15/mL)":1/15,"gota (20/mL)":.05,"mL":1,"colher de café":2,"colher de chá":5,"colher de sobremesa":10,"colher de sopa":15,"xícara de café":50,"xícara de chá":150,"copo americano":200}};
+function fillC(){var k=$("c_k").value,o="";Object.keys(U[k]).forEach(function(x){o+="<option>"+x+"</option>"});
+$("c_a").innerHTML=o;$("c_b").innerHTML=o;$("c_b").selectedIndex=Math.min(1,Object.keys(U[k]).length-1);calcC()}
+function calcC(){
+var k=$("c_k").value,v=n("c_n"),a=$("c_a").value,b=$("c_b").value;
+if(v==null){$("c_r1").textContent="—";$("c_r2").textContent="";return}
+var r=v*U[k][a]/U[k][b];
+$("c_r1").textContent=f(r,6)+" "+b.split("  ")[0];
+$("c_r2").textContent=f(v,6)+" "+a.split("  ")[0]+" = "+f(r,6)+" "+b.split("  ")[0]+(k==="p"?"  ·  1% = 10 mg/mL":"");
+}
+["g_v","g_h","g_m","g_x"].forEach(function(i){$(i).oninput=calcG});$("g_f").onchange=calcG;
+["t_v","t_s"].forEach(function(i){$(i).oninput=calcT});$("t_u").onchange=calcT;$("t_f").onchange=calcT;
+["b_d","b_p","b_mg","b_vol"].forEach(function(i){$(i).oninput=calcB});$("b_u").onchange=calcB;
+$("c_n").oninput=calcC;$("c_a").onchange=calcC;$("c_b").onchange=calcC;$("c_k").onchange=fillC;
+calcT();calcB();fillC();
+var KT="ci_termos_v1";
+try{if(localStorage.getItem(KT)==="1")$("gate").style.display="none"}catch(e){}
+$("gt_ck").onchange=function(){$("gt_bt").disabled=!this.checked};
+$("gt_bt").onclick=function(){try{localStorage.setItem(KT,"1")}catch(e){}$("gate").style.display="none"};
+</script>
+<script>
+if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>

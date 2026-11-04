@@ -1,0 +1,9 @@
+CALCULADORA DE INFUSÃO - PWA
+
+1. Publique TODOS os arquivos desta pasta juntos, na mesma pasta do servidor, com HTTPS
+   (ex.: GitHub Pages, Netlify, Cloudflare Pages ou servidor da instituição).
+2. Abra o endereço no celular.
+   Android (Chrome): menu ⋮ > Instalar aplicativo.
+   iPhone (Safari): Compartilhar > Adicionar à Tela de Início.
+3. Depois do primeiro acesso, o app abre também sem internet.
+4. Ao alterar o conteúdo, mude CACHE="infusao-v1" em sw.js (ex.: infusao-v2) para os aparelhos atualizarem.
