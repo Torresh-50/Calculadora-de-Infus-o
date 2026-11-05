@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Calculadora de Infusão</title>
+<title>Helofusion</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0a7a8f">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Infusão">
+<meta name="apple-mobile-web-app-title" content="Helofusion">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -63,7 +63,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 </head>
 <body>
 <main>
-<h1>💧 Calculadora de Infusão</h1>
+<h1>💧 Helofusion <span style="font-size:.7rem;font-weight:400;color:var(--mut)">calculadora de infusão</span></h1>
 <nav id="nav">
 <button data-t="g" class="on">Gotejamento</button>
 <button data-t="t">Tempo</button>
@@ -207,7 +207,7 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 
 <section id="s" class="tm">
 <h2>Termos de uso e segurança</h2>
-<p class="sm">Versão 1.2, 04/11/2026</p>
+<p class="sm">Versão 1.3, 04/11/2026</p>
 <ol>
 <li><b>Segurança do paciente em primeiro lugar.</b> Siga sempre a prescrição médica e os protocolos da instituição. Nunca prepare ou administre um medicamento com dúvida: pare, releia a prescrição, confira paciente, medicamento, dose, via, velocidade e horário, peça a dupla checagem e comunique o médico responsável e a enfermagem responsável antes de prosseguir. Registre e notifique qualquer evento ou quase erro conforme o fluxo da instituição.</li>
 <li><b>Finalidade.</b> Este aplicativo é uma ferramenta de apoio ao cálculo (gotejamento, tempo de infusão, vazão de bomba e conversão de unidades). Não é dispositivo médico, não faz diagnóstico e não substitui prescrição, julgamento clínico, protocolos institucionais nem a dupla checagem.</li>
@@ -218,8 +218,12 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <li><b>Privacidade e dados (LGPD).</b> Os cálculos são feitos no próprio aparelho. O aplicativo não envia nem coleta dados. Os cálculos e as anotações que você salvar ficam guardados apenas neste aparelho e navegador, e você pode apagá-los a qualquer momento. Não digite nome, prontuário, leito ou qualquer dado que identifique pacientes, nem nas anotações. Limpar os dados do navegador apaga o histórico.</li>
 <li><b>Acesso por link.</b> O link é pessoal. Compartilhe apenas com quem deve ter acesso e use aparelho com bloqueio de tela. A página é hospedada pelo claude.ai.</li>
 <li><b>Atualizações.</b> O conteúdo pode mudar. Revise periodicamente com seu serviço, a farmácia e a comissão de segurança do paciente antes de adotar o app na rotina da instituição.</li>
+<li><b>Apoio financeiro voluntário.</b> O Helofusion é gratuito. Contribuições são opcionais e voluntárias, não dão direito a suporte, garantia ou recursos extras e não alteram nenhuma regra de segurança ou de responsabilidade destes termos.</li>
 </ol>
 <p class="sm">Texto de apoio, não substitui parecer jurídico. A instituição deve revisá-lo antes do uso institucional.</p>
+<h3>💙 Apoie o projeto</h3>
+<p class="sm">O Helofusion é gratuito. Se ele ajudou no seu trabalho, você pode contribuir com uma ajuda de custo, de forma voluntária. A contribuição não dá direito a suporte nem a recursos extras e não altera as regras de segurança: siga sempre a prescrição e, em caso de dúvida, não administre.</p>
+<div class="hc"><div class="sm">Chave Pix</div><div id="pxk" class="hr" style="word-break:break-all">—</div><button type="button" id="pxb" class="sv" style="margin-top:8px">📋 Copiar chave Pix</button></div>
 </section>
 
 <div id="toast" class="toast" role="status"></div>
@@ -332,7 +336,9 @@ sec.querySelectorAll("input[type=text]").forEach(function(i){i.value=""});
 sec.querySelectorAll("select").forEach(function(x){x.selectedIndex=0});
 ({g:calcG,t:calcT,b:calcB,c:fillC})[s]()}
 document.querySelectorAll(".clr[data-s]").forEach(function(b){b.onclick=function(){limpar(b.dataset.s)}});
-var KT="ci_termos_v3";
+var PIX_CHAVE="gabrielqazxsw2000@gmail.com";
+if(PIX_CHAVE){$("pxk").textContent=PIX_CHAVE;$("pxb").onclick=function(){cop(PIX_CHAVE)}}else{$("pxk").textContent="Chave Pix em breve";$("pxb").style.display="none"}
+var KT="ci_termos_v4";
 try{if(localStorage.getItem(KT)==="1")$("gate").style.display="none"}catch(e){}
 $("gt_ck").onchange=function(){$("gt_bt").disabled=!this.checked};
 $("gt_bt").onclick=function(){try{localStorage.setItem(KT,"1")}catch(e){}$("gate").style.display="none"};

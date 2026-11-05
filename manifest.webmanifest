@@ -1,7 +1,7 @@
 {
-  "name": "Calculadora de Infusão",
-  "short_name": "Infusão",
-  "description": "Gotejamento, tempo de infusão, bomba e conversão de unidades",
+  "name": "Helofusion",
+  "short_name": "Helofusion",
+  "description": "Calculadora de infusão: gotejamento, tempo de infusão, bomba e conversão de unidades",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",

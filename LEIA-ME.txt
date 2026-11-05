@@ -1,4 +1,4 @@
-CALCULADORA DE INFUSÃO - PWA
+HELOFUSION - PWA
 
 1. Publique TODOS os arquivos desta pasta juntos, na mesma pasta do servidor, com HTTPS
    (ex.: GitHub Pages, Netlify, Cloudflare Pages ou servidor da instituição).
