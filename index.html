@@ -22,9 +22,6 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 main{max-width:560px;margin:0 auto;padding:16px}
 h1{font-size:1.3rem;margin:4px 0 12px}
-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
-nav button{flex:1;white-space:nowrap;padding:10px 12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-size:.9rem;cursor:pointer}
-nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
 section{display:none;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-top:10px}
 section.on{display:block}
 label{display:block;font-size:.85rem;color:var(--mut);margin:12px 0 4px}
@@ -59,21 +56,34 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 .alert ul{margin:6px 0 0;padding-left:18px}
 .alert li{margin:3px 0}
 .warn{margin:14px 0 0;padding:10px 12px;border:2px solid #e08a00;background:rgba(240,150,0,.12);border-radius:10px;font-size:.85rem}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;aspect-ratio:1/.72;padding:6px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;font:inherit;font-size:.78rem;line-height:1.15;text-align:center;cursor:pointer}
+nav button .i{font-size:1.5rem;line-height:1}
+nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:5px 9px;font-size:.95rem}
+.chip small{color:var(--mut);font-size:.72rem}
+.kg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.kb{padding:15px 0;font:inherit;font-size:1.2rem;border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);cursor:pointer}
+.kb.op{background:var(--res);color:var(--ac);font-weight:700}
+.kb.eq{background:var(--ac);color:var(--acx);font-weight:700}
 </style>
 </head>
 <body>
 <main>
 <h1>💧 Helofusion <span style="font-size:.7rem;font-weight:400;color:var(--mut)">calculadora de infusão</span></h1>
 <nav id="nav">
-<button data-t="g" class="on">Gotejamento</button>
-<button data-t="t">Tempo</button>
-<button data-t="b">Bomba</button>
-<button data-t="c">Conversão</button>
-<button data-t="r">Referência</button>
-<button data-t="h">Anotações</button>
-<button data-t="s">Termos</button>
+<button data-t="k"><span class="i">🔢</span>Calculadora</button>
+<button data-t="g" class="on"><span class="i">💧</span>Gotejamento</button>
+<button data-t="t"><span class="i">⏱️</span>Tempo</button>
+<button data-t="b"><span class="i">💉</span>Bomba</button>
+<button data-t="i"><span class="i">🕒</span>Horários</button>
+<button data-t="c"><span class="i">⚖️</span>Conversão</button>
+<button data-t="r"><span class="i">📖</span>Referência</button>
+<button data-t="h"><span class="i">📝</span>Anotações</button>
+<button data-t="s"><span class="i">📄</span>Termos</button>
 </nav>
-<div class="warn">⚠️ <b>Siga sempre a prescrição.</b> Em caso de dúvida, <b>não administre</b>: pare, confira de novo e comunique o médico responsável. A segurança do paciente vem em primeiro lugar.</div>
+<div class="warn" id="aviso" style="position:relative;padding-right:40px">⚠️ <b>Siga sempre a prescrição.</b> Em caso de dúvida, <b>não administre</b>: pare, confira de novo e comunique o médico responsável. A segurança do paciente vem em primeiro lugar.<button type="button" id="avx" aria-label="Fechar aviso" style="position:absolute;top:4px;right:6px;width:32px;height:32px;border:0;background:transparent;color:var(--tx);font-size:1.1rem;cursor:pointer">✕</button></div>
 
 <section id="g" class="on">
 <h2>Gotas por minuto</h2>
@@ -196,6 +206,29 @@ tr.al td{background:rgba(240,150,0,.16);font-weight:600}
 <tr class="al"><td>⚠️ Gluconato de Ca 10%</td><td>100 mg/mL ≈ 0,46 mEq/mL</td></tr>
 </table></div>
 <p class="sm">Valores aproximados. Sempre confirme no rótulo e na bula do produto usado.</p>
+</section>
+
+<section id="k">
+<h2>Calculadora</h2>
+<div class="res" style="margin-top:10px"><div id="k_h" class="sm" style="text-align:right;min-height:1.3em"></div><div id="k_d" class="big" style="text-align:right;word-break:break-all">0</div></div>
+<div id="k_g" class="kg"></div>
+</section>
+
+<section id="i">
+<h2>Horários de medicação</h2>
+<p class="sm">Reaprazamento: informe o intervalo e a duração para listar todos os horários.</p>
+<label>Início</label>
+<select id="i_s"><option value="n">Agora</option><option value="x">Outro horário</option></select>
+<div id="i_tw" style="display:none"><label>Horário de início</label><input id="i_t" type="time"></div>
+<div class="row">
+<div><label>Intervalo entre doses</label><input id="i_n" type="text" inputmode="decimal" placeholder="ex.: 1"></div>
+<div><label>Unidade</label><select id="i_u"><option value="h">horas</option><option value="m">minutos</option></select></div>
+</div>
+<label>Duração total (horas)</label><input id="i_d" type="text" inputmode="decimal" placeholder="ex.: 24" value="24">
+<div class="res"><div class="big" id="i_r1">—</div><div class="sm" id="i_r2"></div><div class="sm" id="i_r3" style="display:none"></div><div id="i_l" class="chips"></div></div>
+<button type="button" class="clr" id="i_rc" style="margin-top:10px">🔄 Recalcular com a hora atual</button>
+<div class="acts"><button type="button" class="sv" data-s="i">💾 Salvar</button><button type="button" class="clr" data-s="i">🧹 Limpar</button></div>
+<p class="sm">“Agora” usa a hora do momento do cálculo. Os horários seguem a prescrição médica: confira sempre antes de administrar.</p>
 </section>
 
 <section id="h">
@@ -331,12 +364,59 @@ else{var x=a.filter(function(y){return String(y.id)===id})[0];if(!x)return;cop([
 var hx=0;$('hx').onclick=function(){var b=this;if(!ld().length)return;if(!hx){hx=1;b.textContent='Toque de novo para apagar tudo';setTimeout(function(){hx=0;b.textContent='🗑️ Apagar tudo'},4000)}else{hx=0;sd([]);rend();b.textContent='🗑️ Apagar tudo'}};
 document.querySelectorAll('.sv').forEach(function(b){b.onclick=function(){salvar(b.dataset.s)}});
 rend();
+function mostrarAviso(){var a=$("aviso");if(a)a.style.display="block"}
+$("avx").onclick=function(){$("aviso").style.display="none"};
+function hm(d){return d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}
+function dl(d){var t=new Date(),s=d.toDateString(),a=new Date(t.getTime()+864e5),y=new Date(t.getTime()-864e5);
+if(s===t.toDateString())return "";if(s===a.toDateString())return "amanhã";if(s===y.toDateString())return "ontem";return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"})}
+function calcI(){
+var tw=$("i_s").value==="x";$("i_tw").style.display=tw?"block":"none";
+var iv=n("i_n"),du=n("i_d"),u=$("i_u").value==="h"?60:1,R=$("i_r1");
+function vazio(m){R.textContent="—";$("i_r2").textContent=m||"";$("i_r3").textContent="";$("i_l").innerHTML=""}
+if(!iv||iv<=0||!du||du<=0){vazio();return}
+var ini=new Date();
+if(tw){var tv=$("i_t").value;if(!tv){vazio("Informe o horário de início.");return}var p=tv.split(":");ini.setHours(+p[0],+p[1],0,0)}else ini.setSeconds(0,0);
+var im=iv*u,dm=du*60,tot=Math.ceil(dm/im-1e-9);
+if(tot>300){vazio("Muitos horários (máximo 300). Aumente o intervalo ou reduza a duração.");return}
+var ts=[];for(var k=0;k<tot;k++)ts.push(new Date(ini.getTime()+Math.round(k*im*60000)));
+var lb=function(d){var l=dl(d);return hm(d)+(l?" ("+l+")":"")};
+R.textContent=tot+(tot>1?" horários":" horário");
+$("i_r2").textContent="A cada "+f(iv)+(u===60?" h":" min")+" · "+lb(ts[0])+" até "+lb(ts[tot-1])+" · duração "+f(du)+" h";
+var tx=ts.slice(0,40).map(lb).join(" · ");if(tot>40)tx+=" … (+"+(tot-40)+")";
+$("i_r3").textContent=tx;
+$("i_l").innerHTML=ts.map(function(d){var l=dl(d);return `<span class='chip'><b>${hm(d)}</b>${l?` <small>${l}</small>`:""}</span>`}).join("")}
+["i_n","i_d","i_t"].forEach(function(i){$(i).oninput=calcI});
+["i_s","i_u","i_t"].forEach(function(i){$(i).onchange=calcI});
+$("i_rc").onclick=calcI;
+TT.i="Horários";
+EN.i=function(){return "Início "+($("i_s").value==="x"?vl("i_t"):"agora")+" · a cada "+vl("i_n")+" "+($("i_u").value==="h"?"h":"min")+" · duração "+vl("i_d")+" h"};
+var K={cur:"0",prev:null,op:null,fresh:false};
+function kfmt(s){return s.replace(".",",")}
+function kn(x){return +x.toPrecision(12)}
+function kc(a,b,o){return o==="+"?a+b:o==="−"?a-b:o==="×"?a*b:o==="÷"?(b===0?NaN:a/b):b}
+function kshow(){$("k_d").textContent=kfmt(K.cur);$("k_h").textContent=(K.prev!==null&&K.op)?kfmt(String(kn(K.prev)))+" "+K.op:""}
+function kpress(v){
+if(/[0-9]/.test(v)){if(K.fresh||K.cur==="0"||K.cur==="Erro"){K.cur=v;K.fresh=false}else if(K.cur.replace(/[-.]/g,"").length<15)K.cur+=v}
+else if(v===","){if(K.fresh||K.cur==="Erro"){K.cur="0.";K.fresh=false}else if(K.cur.indexOf(".")<0)K.cur+="."}
+else if(v==="AC"){K={cur:"0",prev:null,op:null,fresh:false};mostrarAviso()}
+else if(v==="⌫"){if(K.fresh||K.cur==="Erro")K.cur="0";else K.cur=(K.cur.length>1&&!(K.cur.length===2&&K.cur[0]==="-"))?K.cur.slice(0,-1):"0"}
+else if(v==="±"){if(K.cur!=="0"&&K.cur!=="Erro")K.cur=K.cur[0]==="-"?K.cur.slice(1):"-"+K.cur}
+else if(v==="%"){var c=parseFloat(K.cur);if(!isNaN(c)){K.cur=String(kn((K.prev!==null&&(K.op==="+"||K.op==="−"))?K.prev*c/100:c/100))}}
+else if(v==="="){if(K.op!==null&&K.prev!==null){var r=kc(K.prev,parseFloat(K.cur),K.op);K.cur=isNaN(r)?"Erro":String(kn(r));K.prev=null;K.op=null;K.fresh=true}}
+else{if(K.cur==="Erro")return;
+if(K.op!==null&&K.prev!==null&&!K.fresh){var r2=kc(K.prev,parseFloat(K.cur),K.op);if(isNaN(r2)){K.cur="Erro";K.prev=null;K.op=null;K.fresh=true;kshow();return}K.prev=kn(r2);K.cur=String(K.prev)}else K.prev=parseFloat(K.cur);
+K.op=v;K.fresh=true}
+kshow()}
+var KL=["AC","±","%","÷","7","8","9","×","4","5","6","−","1","2","3","+","0",",","⌫","="];
+$("k_g").innerHTML=KL.map(function(c){var cl=/[0-9,]/.test(c)?"":(c==="="?" eq":" op");return `<button type='button' class='kb${cl}' data-k='${c}'>${c}</button>`}).join("");
+$("k_g").addEventListener("click",function(e){var b=e.target.closest("button");if(b)kpress(b.dataset.k)});
+kshow();
 function limpar(s){var sec=$(s);
-sec.querySelectorAll("input[type=text]").forEach(function(i){i.value=""});
+sec.querySelectorAll("input[type=text],input[type=time]").forEach(function(i){i.value=""});
 sec.querySelectorAll("select").forEach(function(x){x.selectedIndex=0});
-({g:calcG,t:calcT,b:calcB,c:fillC})[s]()}
+({g:calcG,t:calcT,b:calcB,c:fillC,i:calcI})[s]();mostrarAviso()}
 document.querySelectorAll(".clr[data-s]").forEach(function(b){b.onclick=function(){limpar(b.dataset.s)}});
-var PIX_CHAVE="gabrielqazxsw2000@gmail.com";
+var PIX_CHAVE="7ccda30b-57d1-43e8-94df-70354db777e5";
 if(PIX_CHAVE){$("pxk").textContent=PIX_CHAVE;$("pxb").onclick=function(){cop(PIX_CHAVE)}}else{$("pxk").textContent="Chave Pix em breve";$("pxb").style.display="none"}
 var KT="ci_termos_v4";
 try{if(localStorage.getItem(KT)==="1")$("gate").style.display="none"}catch(e){}
