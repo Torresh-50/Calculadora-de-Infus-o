@@ -67,6 +67,9 @@ nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-
 .kb{padding:15px 0;font:inherit;font-size:1.2rem;border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);cursor:pointer}
 .kb.op{background:var(--res);color:var(--ac);font-weight:700}
 .kb.eq{background:var(--ac);color:var(--acx);font-weight:700}
+#n_tb{table-layout:fixed}#n_tb input{padding:8px 6px}
+#y_tb{table-layout:fixed}#y_tb th{padding:6px 2px;font-size:.7rem;text-align:center}#y_tb td{padding:3px 2px}#y_tb td.dl{color:var(--mut);font-size:.72rem;width:44px;text-align:left}#y_tb input{padding:8px 2px;text-align:center;font-size:.9rem}#y_r3{white-space:pre-line}
+#p_tb{table-layout:fixed}#p_tb th{padding:6px 2px;font-size:.68rem;text-align:center}#p_tb td{padding:3px 2px}#p_tb td.dl{color:var(--mut);font-size:.72rem;width:44px;text-align:left}#p_tb input{padding:8px 2px;text-align:center;font-size:.9rem}#p_r3,#p_det{white-space:pre-line}
 </style>
 </head>
 <body>
@@ -77,6 +80,9 @@ nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-
 <button data-t="g" class="on"><span class="i">💧</span>Gotejamento</button>
 <button data-t="t"><span class="i">⏱️</span>Tempo</button>
 <button data-t="b"><span class="i">💉</span>Bomba</button>
+<button data-t="n"><span class="i">🩸</span>Insulina</button>
+<button data-t="y"><span class="i">📈</span>Glicemias</button>
+<button data-t="p"><span class="i">🫀</span>Pressão</button>
 <button data-t="i"><span class="i">🕒</span>Horários</button>
 <button data-t="c"><span class="i">⚖️</span>Conversão</button>
 <button data-t="r"><span class="i">📖</span>Referência</button>
@@ -192,6 +198,31 @@ nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-
 <tr class="al"><td>⚠️ Insulina U-100</td><td>100 UI/mL, então 1 UI = 0,01 mL</td></tr>
 <tr class="al"><td>⚠️ Heparina 5.000 UI/mL</td><td>1 mL = 5.000 UI, 0,1 mL = 500 UI</td></tr>
 </table></div>
+<h3>Insulina e diabetes gestacional (DMG)</h3>
+<div class="tw"><table>
+<tr class="al"><td>⚠️ Insulina</td><td>Alta vigilância: dupla checagem, tipo e concentração conferidos</td></tr>
+<tr><td>Meta em jejum</td><td>&lt; 95 mg/dL</td></tr>
+<tr><td>Meta 1 h após refeição</td><td>&lt; 140 mg/dL</td></tr>
+<tr><td>Meta 2 h após refeição</td><td>&lt; 120 mg/dL</td></tr>
+<tr class="al"><td>⚠️ Hipoglicemia</td><td>&lt; 70 mg/dL: não aplicar insulina, seguir o protocolo</td></tr>
+<tr><td>Insulina U-100</td><td>100 UI/mL (1 UI = 0,01 mL)</td></tr>
+<tr><td>Insulina U-40</td><td>40 UI/mL (1 UI = 0,025 mL)</td></tr>
+</table></div>
+<p class="sm">Metas comuns em diretrizes (por exemplo ADA e sociedades brasileiras). Confirme sempre o protocolo do seu serviço.</p>
+<h3>Pressão arterial (Cadernos de Atenção Básica, MS)</h3>
+<div class="tw"><table>
+<tr><th>Classificação (adultos)</th><th>PAS / PAD (mmHg)</th></tr>
+<tr><td>Normal</td><td>≤ 120 e ≤ 80</td></tr>
+<tr><td>Pré-hipertensão</td><td>121–139 ou 81–89</td></tr>
+<tr><td>Hipertensão estágio 1</td><td>140–159 ou 90–99</td></tr>
+<tr><td>Hipertensão estágio 2</td><td>160–179 ou 100–109</td></tr>
+<tr class="al"><td>⚠️ Hipertensão estágio 3</td><td>≥ 180 ou ≥ 110</td></tr>
+<tr><td>Gestante: normal</td><td>abaixo de 140/90</td></tr>
+<tr><td>Gestante: leve a moderada</td><td>140–159 / 90–109</td></tr>
+<tr class="al"><td>⚠️ Gestante: grave</td><td>≥ 160 ou ≥ 110</td></tr>
+<tr><td>PAM</td><td>(PAS + 2 × PAD) ÷ 3 · usual 70–100</td></tr>
+</table></div>
+<p class="sm">Vale a maior categoria entre PAS e PAD. Base: Caderno de Atenção Básica nº 37 (2013) e materiais do MS sobre pré-natal e gestação de alto risco. Diretrizes mais recentes podem usar outros pontos de corte: confirme o protocolo vigente do seu serviço.</p>
 <h3>Soluções e ampolas comuns</h3>
 <div class="tw"><table>
 <tr><th>Solução</th><th>Concentração</th></tr>
@@ -231,6 +262,76 @@ nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-
 <p class="sm">“Agora” usa a hora do momento do cálculo. Os horários seguem a prescrição médica: confira sempre antes de administrar.</p>
 </section>
 
+<section id="n">
+<h2>Insulina (DMG)</h2>
+<div class="warn" style="margin-top:10px">⚠️ <b>Insulina é medicamento de alta vigilância.</b> Use apenas valores <b>prescritos</b>: o app não define doses. Confira o tipo de insulina (NPH, regular, ultrarrápida), a concentração e a seringa, e faça <b>dupla checagem independente</b>. Em dúvida, <b>não aplique</b> e comunique o médico responsável.</div>
+<label>O que calcular</label>
+<select id="n_m"><option value="d">Dose total diária por peso (conferência)</option><option value="c">Dose de correção pela glicemia</option><option value="e">Escala de correção (tabela prescrita)</option><option value="v">Unidades (UI) em volume (mL)</option></select>
+<div id="n_d">
+<div class="row">
+<div><label>Peso (kg)</label><input id="n_p" type="text" inputmode="decimal" placeholder="ex.: 70"></div>
+<div><label>Dose prescrita (UI/kg/dia)</label><input id="n_k" type="text" inputmode="decimal" placeholder="ex.: 0,5"></div>
+</div>
+<label>% da dose pela manhã (opcional)</label><input id="n_pc" type="text" inputmode="decimal" placeholder="ex.: 67 (o restante fica à noite)">
+</div>
+<div id="n_c" style="display:none">
+<div class="row">
+<div><label>Glicemia atual (mg/dL)</label><input id="n_g" type="text" inputmode="decimal"></div>
+<div><label>Meta (mg/dL)</label><input id="n_mt" type="text" inputmode="decimal" placeholder="prescrita"></div>
+</div>
+<label>Fator de sensibilidade prescrito (mg/dL por 1 UI)</label><input id="n_f" type="text" inputmode="decimal" placeholder="ex.: 50">
+</div>
+<div id="n_v" style="display:none">
+<label>Dose prescrita (UI)</label><input id="n_u" type="text" inputmode="decimal" placeholder="ex.: 10">
+</div>
+<div id="n_e" style="display:none">
+<label>Glicemia atual (mg/dL)</label><input id="n_ge" type="text" inputmode="decimal">
+<label>Tabela de correção prescrita (digite como está na prescrição)</label>
+<div class="tw"><table id="n_tb"><thead><tr><th>De (mg/dL)</th><th>Até (mg/dL)</th><th>UI</th></tr></thead><tbody></tbody></table></div>
+<div class="acts"><button type="button" class="clr" id="n_ad">＋ Linha</button><button type="button" class="clr" id="n_rm">− Linha</button></div>
+<p class="sm">Na última faixa, deixe “Até” vazio para “acima de”. A tabela não fica guardada: digite a da prescrição de cada paciente e confira a faixa encontrada.</p>
+</div>
+<div id="n_cw"><label>Concentração da insulina</label>
+<select id="n_cc"><option value="100">U-100 (100 UI/mL)</option><option value="40">U-40 (40 UI/mL)</option></select></div>
+<div class="res"><div class="big" id="n_r1">—</div><div class="sm" id="n_r2"></div><div class="sm" id="n_r3"></div></div>
+<div class="acts"><button type="button" class="sv" data-s="n">💾 Salvar</button><button type="button" class="clr" data-s="n">🧹 Limpar</button></div>
+<p class="sm">Arredonde conforme a prescrição e a graduação da seringa ou caneta. Na gestante, qualquer dúvida sobre a dose: comunique o médico ou obstetra antes de aplicar.</p>
+</section>
+
+<section id="y">
+<h2>Diário glicêmico (DMG)</h2>
+<div class="warn" style="margin-top:10px">📋 Preencha com os valores <b>registrados pela paciente</b> (mg/dL): jejum e após as 3 refeições principais, por pelo menos 7 dias. O resultado é um <b>sinal de alerta para a equipe</b>: não faz diagnóstico nem define conduta. Não digite dados que identifiquem a paciente.</div>
+<div class="row">
+<div><label>Meta jejum (menor que, mg/dL)</label><input id="y_mj" type="text" inputmode="decimal"></div>
+<div><label>Meta pós-prandial (menor que)</label><input id="y_mp" type="text" inputmode="decimal"></div>
+</div>
+<div class="row">
+<div><label>Pós-prandial medido</label><select id="y_t"><option value="1">1 h após a refeição</option><option value="2">2 h após a refeição</option></select></div>
+<div><label>Alerta se % acima da meta ≥</label><input id="y_lm" type="text" inputmode="decimal"></div>
+</div>
+<div class="row"><div><label>Valor crítico (≥ mg/dL)</label><input id="y_cr" type="text" inputmode="decimal"></div><div class="sm" style="align-self:end">Abaixo de 54 mg/dL também é crítico.</div></div>
+<div class="tw" style="margin-top:12px"><table id="y_tb"><thead><tr><th></th><th>Jejum</th><th>Pós-café</th><th>Pós-almoço</th><th>Pós-jantar</th></tr></thead><tbody></tbody></table></div>
+<div class="acts"><button type="button" class="clr" id="y_ad">＋ Dia</button><button type="button" class="clr" id="y_rm">− Dia</button></div>
+<div class="res"><div class="big" id="y_r1" style="font-size:1.4rem">—</div><div class="sm" id="y_r2"></div><div class="sm" id="y_r3"></div></div>
+<div class="acts"><button type="button" class="sv" data-s="y">💾 Salvar</button><button type="button" class="clr" data-s="y">🧹 Limpar</button></div>
+<p class="sm">Verde: dentro da meta. Laranja: acima da meta ou abaixo de 70 mg/dL. Vermelho: crítico (abaixo de 54 mg/dL ou acima do valor crítico). Metas, valor crítico e limite de alerta começam com valores de referência comuns e podem ser ajustados: confirme o critério do seu serviço. Os dados não são enviados nem ficam guardados ao fechar, a menos que você toque em Salvar.</p>
+</section>
+
+<section id="p">
+<h2>Registro de pressão arterial</h2>
+<div class="warn" style="margin-top:10px">📋 Referência: Cadernos de Atenção Básica do Ministério da Saúde (nº 37, Hipertensão; pré-natal e gestação de alto risco). Aferir sentado, braço apoiado na altura do coração, após 5 minutos de repouso, com manguito adequado. <b>Uma aferição elevada não fecha diagnóstico</b>: confirme em dias diferentes. O resultado é um sinal de alerta para a equipe e não define conduta.</div>
+<label>Categoria da pessoa</label>
+<select id="p_c"><option value="a">Adulto saudável</option><option value="i">Idoso (60 anos ou mais)</option><option value="o">Pessoa com obesidade</option><option value="g">Gestante</option><option value="h">Hipertenso em acompanhamento</option></select>
+<div class="sm" id="p_i" style="margin-top:8px"></div>
+<div class="tw" style="margin-top:12px"><table id="p_tb"><thead><tr><th></th><th>Manhã PAS</th><th>Manhã PAD</th><th>Noite PAS</th><th>Noite PAD</th></tr></thead><tbody></tbody></table></div>
+<div class="acts"><button type="button" class="clr" id="p_ad">＋ Dia</button><button type="button" class="clr" id="p_rm">− Dia</button></div>
+<p class="sm" style="margin-top:10px">PAS e PAD em mmHg. 🟢 dentro do esperado · 🟠 alerta · 🔴 grave · 🔵 possível hipotensão.</p>
+<div class="res"><div class="big" id="p_r1" style="font-size:1.4rem">—</div><div class="sm" id="p_r2"></div><div class="sm" id="p_r3"></div>
+<details style="margin-top:8px"><summary class="sm">Ver PAM e classificação de cada leitura</summary><div class="sm" id="p_det"></div></details></div>
+<div class="acts"><button type="button" class="sv" data-s="p">💾 Salvar</button><button type="button" class="clr" data-s="p">🧹 Limpar</button></div>
+<p class="sm">PAM = (PAS + 2 × PAD) ÷ 3. Referência usual: 70 a 100 mmHg; abaixo de 65 sugere perfusão insuficiente. Os dados não são enviados nem ficam guardados ao fechar, a menos que você toque em Salvar. Não digite dados que identifiquem a pessoa.</p>
+</section>
+
 <section id="h">
 <h2>Anotações e cálculos salvos <span id="hn" class="sm"></span></h2>
 <div class="warn">🔒 Ficam salvos só neste aparelho e navegador. Não escreva nome, prontuário, leito ou dados que identifiquem pacientes. Limpar os dados do navegador apaga tudo.</div>
@@ -240,10 +341,10 @@ nav button.on{background:var(--ac);color:var(--acx);border-color:var(--ac);font-
 
 <section id="s" class="tm">
 <h2>Termos de uso e segurança</h2>
-<p class="sm">Versão 1.3, 04/11/2026</p>
+<p class="sm">Versão 1.4, 05/11/2026</p>
 <ol>
 <li><b>Segurança do paciente em primeiro lugar.</b> Siga sempre a prescrição médica e os protocolos da instituição. Nunca prepare ou administre um medicamento com dúvida: pare, releia a prescrição, confira paciente, medicamento, dose, via, velocidade e horário, peça a dupla checagem e comunique o médico responsável e a enfermagem responsável antes de prosseguir. Registre e notifique qualquer evento ou quase erro conforme o fluxo da instituição.</li>
-<li><b>Finalidade.</b> Este aplicativo é uma ferramenta de apoio ao cálculo (gotejamento, tempo de infusão, vazão de bomba e conversão de unidades). Não é dispositivo médico, não faz diagnóstico e não substitui prescrição, julgamento clínico, protocolos institucionais nem a dupla checagem.</li>
+<li><b>Finalidade.</b> Este aplicativo é uma ferramenta de apoio ao cálculo (gotejamento, tempo de infusão, vazão de bomba e conversão de unidades). Não é dispositivo médico, não faz diagnóstico e não substitui prescrição, julgamento clínico, protocolos institucionais nem a dupla checagem. As calculadoras de medicamentos (como a de insulina) usam somente valores informados pelo usuário a partir da prescrição: o aplicativo não sugere nem define doses.</li>
 <li><b>Quem pode usar.</b> Destinado a profissionais de saúde habilitados e a estudantes sob supervisão.</li>
 <li><b>Conferência obrigatória.</b> Todo resultado deve ser conferido com a prescrição, o rótulo e a bula. Se o resultado for diferente da prescrição ou parecer incomum, não prossiga e comunique o médico responsável. Para medicamentos de alta vigilância, a dupla checagem independente é obrigatória.</li>
 <li><b>Responsabilidade.</b> A conferência e a administração são de responsabilidade de quem usa. Os criadores do aplicativo e a plataforma que o hospeda não respondem por danos decorrentes do uso sem a devida conferência, de erro de digitação ou de interpretação do resultado.</li>
@@ -411,14 +512,176 @@ var KL=["AC","±","%","÷","7","8","9","×","4","5","6","−","1","2","3","+","0
 $("k_g").innerHTML=KL.map(function(c){var cl=/[0-9,]/.test(c)?"":(c==="="?" eq":" op");return `<button type='button' class='kb${cl}' data-k='${c}'>${c}</button>`}).join("");
 $("k_g").addEventListener("click",function(e){var b=e.target.closest("button");if(b)kpress(b.dataset.k)});
 kshow();
+function calcN(){
+var m=$("n_m").value;
+$("n_d").style.display=m==="d"?"block":"none";$("n_c").style.display=m==="c"?"block":"none";$("n_v").style.display=m==="v"?"block":"none";$("n_e").style.display=m==="e"?"block":"none";$("n_cw").style.display=m==="c"?"none":"block";
+var R1=$("n_r1"),R2=$("n_r2"),R3=$("n_r3"),cc=parseFloat($("n_cc").value);
+var ui=function(x){return f(x,1)+" UI"},ml=function(x){return f(x/cc,2)+" mL"};
+Array.prototype.forEach.call($("n_tb").tBodies[0].rows,function(r){r.style.background=""});
+function lim(s){R1.textContent="—";R2.textContent=s||"";R3.textContent=""}
+if(m==="d"){
+var p=n("n_p"),k=n("n_k");if(!p||!k||p<=0||k<=0){lim();return}
+if(p>250||k>3){lim("Valor improvável: confira o peso e a dose por kg.");return}
+var t=p*k;R1.textContent=ui(t)+"/dia";
+R2.textContent=f(p)+" kg × "+f(k)+" UI/kg/dia = "+ui(t)+" ("+ml(t)+" em insulina U-"+cc+")";
+var pc=n("n_pc"),w="";
+if(pc!==null){if(pc>=0&&pc<=100){var a=t*pc/100;w="Manhã "+f(pc)+"%: "+ui(a)+" ("+ml(a)+") · Noite "+f(100-pc)+"%: "+ui(t-a)+" ("+ml(t-a)+")"}else w="Informe um percentual entre 0 e 100."}
+if(k>1)w+=(w?" · ":"")+"⚠️ Dose acima de 1 UI/kg/dia: confirme a prescrição com o médico antes de prosseguir.";
+R3.textContent=w;
+}else if(m==="c"){
+var g=n("n_g"),mt=n("n_mt"),fs=n("n_f");if(g===null||mt===null||!fs||fs<=0){lim();return}
+if(g<20||g>800){lim("Glicemia improvável: confira o valor.");return}
+if(g<70){R1.textContent="⚠️ Hipoglicemia";R2.textContent="Glicemia abaixo de 70 mg/dL: NÃO aplique insulina. Siga o protocolo de hipoglicemia e comunique o médico responsável.";R3.textContent="";return}
+var d=(g-mt)/fs;
+if(d<=0){R1.textContent="0 UI";R2.textContent="Glicemia na meta ou abaixo dela: sem dose de correção pelo fator informado."}
+else{R1.textContent=ui(d);R2.textContent="("+f(g)+" − "+f(mt)+") ÷ "+f(fs)+" = "+f(d,2)+" UI. Arredonde conforme a prescrição."}
+var w2=[];if(g>=300)w2.push("⚠️ Glicemia muito alta: comunique o médico responsável e siga o protocolo.");
+if(mt<70||mt>200)w2.push("⚠️ Meta fora do habitual: confira a prescrição.");
+R3.textContent=w2.join(" · ");
+}else if(m==="e"){
+var ge=n("n_ge"),rw=nrows(),vr=rw.filter(function(r){return r.a!==null&&r.u!==null});
+if(ge===null||!vr.length){lim();return}
+if(ge<20||ge>800){lim("Glicemia improvável: confira o valor.");return}
+if(ge<70){R1.textContent="⚠️ Hipoglicemia";R2.textContent="Glicemia abaixo de 70 mg/dL: NÃO aplique insulina. Siga o protocolo de hipoglicemia e comunique o médico responsável.";R3.textContent="";return}
+var rs=nesc(ge,rw),w3=rs.w.slice();
+if(rs.m<0){R1.textContent="⚠️ Sem faixa";R2.textContent="A glicemia de "+f(ge)+" mg/dL não está em nenhuma faixa da tabela informada. Confira a prescrição e comunique o médico responsável.";R3.textContent=w3.join(" · ");return}
+var rr=rw[rs.m];rr.tr.style.background="rgba(10,122,143,.28)";
+R1.textContent=ui(rr.u);
+R2.textContent="Glicemia "+f(ge)+" mg/dL: faixa "+f(rr.a)+" a "+(rr.b===null?"acima":f(rr.b))+" mg/dL → "+ui(rr.u)+" ("+ml(rr.u)+" em insulina U-"+cc+")";
+if(ge>=300)w3.push("⚠️ Glicemia muito alta: comunique o médico responsável e siga o protocolo.");
+if(rr.u>50)w3.push("⚠️ Dose alta: confirme a prescrição com o médico.");
+R3.textContent=w3.join(" · ");
+}else{
+var u=n("n_u");if(!u||u<=0){lim();return}
+if(u>100){lim("Dose acima de 100 UI: confirme a prescrição antes de prosseguir.");return}
+R1.textContent=ml(u);
+R2.textContent=f(u,1)+" UI em insulina U-"+cc+". Use seringa ou caneta de insulina com a mesma graduação do frasco, na marca de "+f(u,1)+" UI.";
+R3.textContent="Confira tipo de insulina, concentração e dose com dupla checagem independente."}
+}
+["n_p","n_k","n_pc","n_g","n_mt","n_f","n_u"].forEach(function(i){$(i).oninput=calcN});
+["n_m","n_cc"].forEach(function(i){$(i).onchange=calcN});
+TT.n="Insulina (DMG)";
+EN.n=function(){var m=$("n_m").value;return m==="d"?"Peso "+vl("n_p")+" kg · "+vl("n_k")+" UI/kg/dia"+($("n_pc").value.trim()?" · "+vl("n_pc")+"% pela manhã":"")+" · U-"+$("n_cc").value:m==="c"?"Glicemia "+vl("n_g")+" · meta "+vl("n_mt")+" · fator "+vl("n_f")+" mg/dL por UI":"Dose "+vl("n_u")+" UI · U-"+$("n_cc").value};
+function nesc(g,rows){
+var v=rows.filter(function(r){return r.a!==null&&r.u!==null}),w=[],m=-1,i,j;
+var inc=rows.some(function(r){return (r.a!==null||r.b!==null||r.u!==null)&&(r.a===null||r.u===null)});
+if(inc)w.push("Há linha incompleta na tabela.");
+v.forEach(function(r){var hi=r.b===null?Infinity:r.b;if(hi<r.a&&w.indexOf("Faixa com “Até” menor que “De”: confira a tabela.")<0)w.push("Faixa com “Até” menor que “De”: confira a tabela.");if(m<0&&g>=r.a&&g<=hi)m=rows.indexOf(r)});
+for(i=0;i<v.length;i++)for(j=i+1;j<v.length;j++){var lo=Math.max(v[i].a,v[j].a),hi2=Math.min(v[i].b===null?Infinity:v[i].b,v[j].b===null?Infinity:v[j].b);if(lo<=hi2){w.push("Faixas sobrepostas na tabela: confira a prescrição.");i=v.length;break}}
+return {m:m,w:w}}
+//END
+function nrows(){var o=[];Array.prototype.forEach.call($("n_tb").tBodies[0].rows,function(tr){var i=tr.querySelectorAll("input"),x=function(e){var s=e.value.trim().replace(",","."),q=parseFloat(s);return s===""||isNaN(q)?null:q};o.push({a:x(i[0]),b:x(i[1]),u:x(i[2]),tr:tr})});return o}
+function ntAdd(){var b=$("n_tb").tBodies[0];if(b.rows.length>=15)return;var tr=document.createElement("tr");tr.innerHTML="<td><input type='text' inputmode='decimal'></td><td><input type='text' inputmode='decimal'></td><td><input type='text' inputmode='decimal'></td>";b.appendChild(tr)}
+for(var q=0;q<6;q++)ntAdd();
+$("n_ge").oninput=calcN;$("n_tb").addEventListener("input",calcN);
+$("n_ad").onclick=function(){ntAdd()};
+$("n_rm").onclick=function(){var b=$("n_tb").tBodies[0];if(b.rows.length>1){b.deleteRow(b.rows.length-1);calcN()}};
+var EN0=EN.n;
+EN.n=function(){if($("n_m").value!=="e")return EN0();var t=nrows().filter(function(r){return r.a!==null&&r.u!==null}).map(function(r){return f(r.a)+"–"+(r.b===null?"+":f(r.b))+": "+f(r.u)+" UI"}).join("; ");return "Glicemia "+vl("n_ge")+" mg/dL · tabela prescrita: "+(t||"—")};
+var YN=["Jejum","Pós-café","Pós-almoço","Pós-jantar"];
+function ydef(){$("y_mj").value="95";$("y_mp").value=$("y_t").value==="2"?"120":"140";$("y_lm").value="30";$("y_cr").value="200"}
+function yadd(){var b=$("y_tb").tBodies[0];if(b.rows.length>=28)return;var r=b.insertRow();r.innerHTML="<td class='dl'>Dia "+b.rows.length+"</td>"+"<td><input type='text' inputmode='decimal'></td>".repeat(4)}
+function ytrim(){var b=$("y_tb").tBodies[0];while(b.rows.length>7)b.deleteRow(b.rows.length-1)}
+function calcY(){
+var mj=n("y_mj"),mp=n("y_mp"),lm=n("y_lm"),cr=n("y_cr"),rows=$("y_tb").tBodies[0].rows;
+var cs=[0,1,2,3].map(function(){return {t:0,o:0,s:0}}),dias=0,odd=0,ng=0,no=0,nr=0,hip=0,crit=0;
+Array.prototype.forEach.call(rows,function(tr){var ins=tr.querySelectorAll("input"),full=true;
+for(var c=0;c<4;c++){var inp=ins[c],s=inp.value.trim().replace(",","."),v=parseFloat(s),mt=c===0?mj:mp;inp.style.background="";
+if(s===""||isNaN(v)){full=false;continue}
+if(v<20||v>800)odd++;
+var q=cs[c];q.t++;q.s+=v;
+var hyper=(v>=70&&mt!==null&&v>=mt),ct=(v<54||(cr!==null&&v>=cr));
+if(v<70)hip++;
+if(hyper)q.o++;
+if(ct){crit++;nr++;inp.style.background=PC.r}else if(v<70||hyper){no++;inp.style.background=PC.o}else{ng++;inp.style.background=PC.g}}
+if(full)dias++});
+var tot=0,out=0;cs.forEach(function(q){tot+=q.t;out+=q.o});
+var R1=$("y_r1"),R2=$("y_r2"),R3=$("y_r3");
+if(!tot){R1.textContent="—";R2.textContent="";R3.textContent="";return}
+var pct=out/tot*100;
+R1.textContent=out+" de "+tot+" acima da meta ("+f(pct,0)+"%)";
+R2.textContent=cs.map(function(q,c){return YN[c]+": "+(q.t?q.o+"/"+q.t+" ("+f(q.o/q.t*100,0)+"%) · média "+f(q.s/q.t,0):"sem dados")}).join(" | ");
+var a=["🟢 "+ng+" · 🟠 "+no+" · 🔴 "+nr+" leituras"];
+if(crit)a.push("🔴 "+crit+(crit>1?" valores críticos":" valor crítico")+" (abaixo de 54"+(cr!==null?" ou ≥ "+f(cr):"")+" mg/dL): comunique o médico responsável imediatamente.");
+if(lm!==null&&pct>=lm)a.push("⚠️ Alerta: "+f(pct,0)+"% dos valores acima da meta (limite "+f(lm)+"%). Comunique o médico ou obstetra responsável para avaliação.");
+else if(out>0)a.push("Atenção: há valores acima da meta. Informe a equipe e mantenha o acompanhamento.");
+else a.push("Nenhum valor acima da meta.");
+var cx=[];cs.forEach(function(q,c){if(lm!==null&&q.t&&q.o/q.t*100>=lm)cx.push(YN[c])});
+if(cx.length)a.push("Horários acima do limite: "+cx.join(", ")+".");
+if(hip)a.push("⚠️ "+hip+(hip>1?" valores abaixo":" valor abaixo")+" de 70 mg/dL: comunique o médico e siga o protocolo de hipoglicemia.");
+if(odd)a.push("Há valor improvável (abaixo de 20 ou acima de 800): confira o registro.");
+if(dias<7)a.push("Registro incompleto: "+dias+" de 7 dias com as 4 leituras (o ideal é ao menos 7 dias completos).");
+R3.textContent=a.join("\n")}
+for(var q0=0;q0<7;q0++)yadd();
+ydef();
+["y_mj","y_mp","y_lm","y_cr"].forEach(function(i){$(i).oninput=calcY});
+$("y_t").onchange=function(){$("y_mp").value=$("y_t").value==="2"?"120":"140";calcY()};
+$("y_tb").addEventListener("input",calcY);
+$("y_ad").onclick=function(){yadd()};
+$("y_rm").onclick=function(){var b=$("y_tb").tBodies[0];if(b.rows.length>7){b.deleteRow(b.rows.length-1);calcY()}};
+TT.y="Glicemias (DMG)";
+EN.y=function(){var d=[];Array.prototype.forEach.call($("y_tb").tBodies[0].rows,function(tr,i){var v=[].map.call(tr.querySelectorAll("input"),function(x){return x.value.trim()||"–"});if(v.some(function(x){return x!=="–"}))d.push("D"+(i+1)+": "+v.join("/"))});return "Meta jejum <"+vl("y_mj")+", pós ("+$("y_t").value+" h) <"+vl("y_mp")+" · "+d.join("; ")};
+var PC={g:"rgba(40,170,90,.30)",o:"rgba(240,150,0,.35)",r:"rgba(230,50,50,.40)",b:"rgba(80,120,255,.30)",x:"rgba(150,150,150,.35)"};
+var PBASE="Caderno de Atenção Básica nº 37 (MS): Normal ≤120/≤80 · Pré-hipertensão 121–139/81–89 · Estágio 1 140–159/90–99 · Estágio 2 160–179/100–109 · Estágio 3 ≥180/≥110. Vale a maior categoria entre PAS e PAD.";
+var PI={a:PBASE,i:PBASE+" Em idosos, meça também em pé (hipotensão postural) e atenção à hipertensão sistólica isolada.",o:PBASE+" Em pessoas com obesidade, use manguito adequado à circunferência do braço: manguito pequeno superestima a pressão.",g:"Gestantes (MS): normal abaixo de 140/90 · hipertensão leve a moderada 140–159 / 90–109 · grave ≥160/110 (sinal de gravidade: avaliação imediata em emergência obstétrica, conforme protocolo).",h:"Hipertenso em acompanhamento: meta de tratamento abaixo de 140/90 (Caderno nº 37). Acima da meta = não controlado, com estágio pela mesma classificação; ≥180/110 = grave."};
+function pcls(cat,s,d){
+var m=(s+2*d)/3;
+if(s<=d||s>300||d>200||s<50||d<30)return {c:"x",t:"Valor improvável: confira a aferição"};
+if(s<90||(d<60&&s<140)||m<65)return {c:"b",t:"Possível hipotensão (referência usual: abaixo de 90/60 ou PAM abaixo de 65)"};
+var ss=s>=180?3:s>=160?2:s>=140?1:0,ds=d>=110?3:d>=100?2:d>=90?1:0,st=Math.max(ss,ds),iso=(s>=140&&d<90);
+if(cat==="g"){if(s>=160||d>=110)return {c:"r",t:"Hipertensão grave na gestação (≥160/110)"};if(s>=140||d>=90)return {c:"o",t:"Hipertensão leve a moderada na gestação (140–159/90–109)"};return {c:"g",t:"Dentro do esperado (<140/90)"}}
+if(cat==="h"){if(st===3)return {c:"r",t:"Estágio 3 (≥180/110)"};if(st>=1)return {c:"o",t:"Acima da meta de tratamento (<140/90): estágio "+st};return {c:"g",t:"Dentro da meta (<140/90)"}}
+if(st===3)return {c:"r",t:"Hipertensão estágio 3"+(iso?" (sistólica isolada)":"")};
+if(st>=1)return {c:"o",t:"Hipertensão estágio "+st+(iso?" (sistólica isolada)":"")};
+if(s>=121||d>=81)return {c:"o",t:"Pré-hipertensão (121–139/81–89)"};
+return {c:"g",t:"Normal (≤120/≤80)"}}
+//END
+function pv(e){var s=e.value.trim().replace(",","."),q=parseFloat(s);return s===""||isNaN(q)?null:q}
+function padd(){var b=$("p_tb").tBodies[0];if(b.rows.length>=28)return;var r=b.insertRow();r.innerHTML="<td class='dl'>Dia "+b.rows.length+"</td>"+"<td><input type='text' inputmode='numeric'></td>".repeat(4)}
+function ptrim(){var b=$("p_tb").tBodies[0];while(b.rows.length>7)b.deleteRow(b.rows.length-1)}
+function calcP(){
+var cat=$("p_c").value;$("p_i").textContent=PI[cat];
+var cnt={g:0,o:0,r:0,b:0,x:0},sS=0,dS=0,np=0,per=[{n:0,s:0},{n:0,s:0}],det=[],inc=0,tot=0;
+Array.prototype.forEach.call($("p_tb").tBodies[0].rows,function(tr,ri){var ins=tr.querySelectorAll("input");
+for(var k=0;k<2;k++){var a=ins[2*k],b=ins[2*k+1],s=pv(a),d=pv(b);a.style.background="";b.style.background="";
+if(s===null&&d===null)continue;
+if(s===null||d===null){inc++;continue}
+var r=pcls(cat,s,d),bg=PC[r.c],nm="Dia "+(ri+1)+" "+(k?"noite":"manhã")+": "+f(s,0)+"/"+f(d,0);
+a.style.background=bg;b.style.background=bg;cnt[r.c]++;tot++;
+if(r.c==="x"){det.push(nm+" → "+r.t);continue}
+var m=(s+2*d)/3;sS+=s;dS+=d;np++;per[k].n++;per[k].s+=m;
+det.push(nm+" → PAM "+f(m,0)+" · "+r.t)}});
+var R1=$("p_r1"),R2=$("p_r2"),R3=$("p_r3");$("p_det").textContent=det.join("\n");
+if(!tot){R1.textContent="—";R2.textContent="";R3.textContent="";return}
+if(!np){R1.textContent="Sem leituras válidas";R2.textContent="";R3.textContent="Valor improvável: confira as aferições.";return}
+var pm=(sS+2*dS)/(3*np);
+R1.textContent="PAM média "+f(pm,0)+" mmHg (PA média "+f(sS/np,0)+"/"+f(dS/np,0)+")";
+R2.textContent="🟢 "+cnt.g+" · 🟠 "+cnt.o+" · 🔴 "+cnt.r+" · 🔵 "+cnt.b+" leituras | PAM média: manhã "+(per[0].n?f(per[0].s/per[0].n,0):"–")+" · noite "+(per[1].n?f(per[1].s/per[1].n,0):"–");
+var a2=[];
+if(cnt.r)a2.push("🔴 "+cnt.r+(cnt.r>1?" leituras em nível grave":" leitura em nível grave")+": comunique o médico responsável imediatamente."+(cat==="g"?" Em gestante, PA ≥160/110 é sinal de gravidade: siga o protocolo de emergência obstétrica.":""));
+if(cnt.o)a2.push("🟠 "+cnt.o+(cnt.o>1?" leituras":" leitura")+" acima do esperado: informe a equipe e confirme com nova aferição, conforme protocolo."+(cat==="g"?" Gestante com PA ≥140/90 exige avaliação (risco de pré-eclâmpsia).":""));
+if(cnt.b)a2.push("🔵 "+cnt.b+(cnt.b>1?" leituras":" leitura")+" com possível hipotensão: confirme a aferição e avalie sintomas.");
+if(cnt.x)a2.push("Há leitura com valor improvável: confira a aferição.");
+if(inc)a2.push("Há leitura com só um valor (PAS ou PAD): complete para classificar.");
+if(!cnt.r&&!cnt.o&&!cnt.b&&!cnt.x)a2.push("Todas as leituras dentro do esperado para a categoria.");
+if(tot<14)a2.push("Registro incompleto: "+tot+" de 14 leituras (o ideal é ao menos 7 dias, manhã e noite).");
+if(pm<65)a2.push("⚠️ PAM média abaixo de 65 mmHg: avalie a perfusão e comunique o médico.");
+R3.textContent=a2.join("\n")}
+for(var q1=0;q1<7;q1++)padd();
+$("p_c").onchange=calcP;$("p_tb").addEventListener("input",calcP);
+$("p_ad").onclick=function(){padd()};
+$("p_rm").onclick=function(){var b=$("p_tb").tBodies[0];if(b.rows.length>7){b.deleteRow(b.rows.length-1);calcP()}};
+calcP();
+TT.p="Pressão arterial";
+EN.p=function(){var d=[];Array.prototype.forEach.call($("p_tb").tBodies[0].rows,function(tr,i){var v=[].map.call(tr.querySelectorAll("input"),function(x){return x.value.trim()||"–"});if(v.some(function(x){return x!=="–"}))d.push("D"+(i+1)+": M "+v[0]+"/"+v[1]+" · N "+v[2]+"/"+v[3])});var o=$("p_c");return o.options[o.selectedIndex].text+" · "+d.join("; ")};
 function limpar(s){var sec=$(s);
 sec.querySelectorAll("input[type=text],input[type=time]").forEach(function(i){i.value=""});
 sec.querySelectorAll("select").forEach(function(x){x.selectedIndex=0});
-({g:calcG,t:calcT,b:calcB,c:fillC,i:calcI})[s]();mostrarAviso()}
+({g:calcG,t:calcT,b:calcB,c:fillC,i:calcI,n:calcN,y:function(){ytrim();ydef();calcY()},p:function(){ptrim();calcP()}})[s]();mostrarAviso()}
 document.querySelectorAll(".clr[data-s]").forEach(function(b){b.onclick=function(){limpar(b.dataset.s)}});
 var PIX_CHAVE="7ccda30b-57d1-43e8-94df-70354db777e5";
 if(PIX_CHAVE){$("pxk").textContent=PIX_CHAVE;$("pxb").onclick=function(){cop(PIX_CHAVE)}}else{$("pxk").textContent="Chave Pix em breve";$("pxb").style.display="none"}
-var KT="ci_termos_v4";
+var KT="ci_termos_v5";
 try{if(localStorage.getItem(KT)==="1")$("gate").style.display="none"}catch(e){}
 $("gt_ck").onchange=function(){$("gt_bt").disabled=!this.checked};
 $("gt_bt").onclick=function(){try{localStorage.setItem(KT,"1")}catch(e){}$("gate").style.display="none"};
